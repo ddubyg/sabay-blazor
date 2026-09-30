@@ -1,0 +1,98 @@
+@page "/create"
+
+<PageTitle>Sabay? - Create Activity</PageTitle>
+
+<div class="sabay-top">
+
+    <div>
+        <h1 class="sabay-title">Create Activity</h1>
+
+        <p class="sabay-subtitle">
+            Invite other students to join you.
+        </p>
+    </div>
+
+</div>
+
+<div class="sabay-form">
+
+    <div class="sabay-form-group">
+
+        <label>Activity Title</label>
+
+        <input class="sabay-input"
+               placeholder="e.g. Tennis after class" />
+
+    </div>
+
+    <div class="sabay-form-group">
+
+        <label>Category</label>
+
+        <select class="sabay-select">
+
+            <option>Study</option>
+            <option>Sports</option>
+            <option>Food</option>
+            <option>Gaming</option>
+            <option>Commute</option>
+            <option>Hangout</option>
+
+        </select>
+
+    </div>
+
+    <div class="sabay-form-group">
+
+        <label>Description</label>
+
+        <textarea class="sabay-textarea"
+                  placeholder="Tell people what you are planning...">
+        </textarea>
+
+    </div>
+
+    <div class="sabay-form-group">
+
+        <label>Location</label>
+
+        <input class="sabay-input"
+               placeholder="e.g. CIT-U Tennis Court" />
+
+    </div>
+
+    <div class="sabay-form-group">
+
+        <label>Date</label>
+
+        <input type="date"
+               class="sabay-input" />
+
+    </div>
+
+    <div class="sabay-form-group">
+
+        <label>Time</label>
+
+        <input type="time"
+               class="sabay-input" />
+
+    </div>
+
+    <div class="sabay-form-group">
+
+        <label>Number of people needed</label>
+
+        <input type="number"
+               class="sabay-input"
+               min="1"
+               max="20"
+               value="1" />
+
+    </div>
+
+    <button class="sabay-btn sabay-btn-primary">
+        Create Activity
+    </button>
+
+</div>
