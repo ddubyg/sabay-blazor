@@ -1,58 +1,61 @@
-﻿@inherits LayoutComponentBase
+﻿
+@inherits LayoutComponentBase
 
-<div class="sabay-app">
+<div class="min-h-screen bg-gray-50 text-gray-900 md:flex">
+    <aside class="w-full border-b border-gray-200 bg-white p-5 md:min-h-screen md:w-64 md:border-b-0 md:border-r">
+        <h1 class="mb-8 text-2xl font-bold text-violet-600">
+            Sabay?
+        </h1>
 
-    <aside class="sabay-sidebar">
-
-        <div class="sabay-brand">
-            <div class="sabay-logo">S</div>
-            <div class="sabay-brand-name">Sabay?</div>
-        </div>
-
-        <nav class="sabay-nav">
-
-            <NavLink href="/" Match="NavLinkMatch.All">
-                🏠 Home
+        <nav class="flex flex-wrap gap-2 md:flex-col">
+            <NavLink href="/" Match="NavLinkMatch.All"
+                     class="rounded-xl px-4 py-3 hover:bg-violet-50 hover:text-violet-700">
+                Home
             </NavLink>
 
-            <NavLink href="/browse">
-                🔎 Browse
+            <NavLink href="/browse"
+                     class="rounded-xl px-4 py-3 hover:bg-violet-50 hover:text-violet-700">
+                Browse Activities
             </NavLink>
 
-            <NavLink href="/create">
-                ➕ Create Activity
+            <NavLink href="/create"
+                     class="rounded-xl px-4 py-3 hover:bg-violet-50 hover:text-violet-700">
+                Create Activity
             </NavLink>
 
-            <NavLink href="/activities">
-                📋 My Activities
+            <NavLink href="/activities"
+                     class="rounded-xl px-4 py-3 hover:bg-violet-50 hover:text-violet-700">
+                My Activities
             </NavLink>
 
-            <NavLink href="/messages">
-                💬 Messages
+            <NavLink href="/messages"
+                     class="rounded-xl px-4 py-3 hover:bg-violet-50 hover:text-violet-700">
+                Messages
             </NavLink>
 
-            <NavLink href="/notifications">
-                🔔 Notifications
+            <NavLink href="/notifications"
+                     class="rounded-xl px-4 py-3 hover:bg-violet-50 hover:text-violet-700">
+                Notifications
             </NavLink>
 
-            <NavLink href="/profile">
-                👤 Profile
+            <NavLink href="/profile"
+                     class="rounded-xl px-4 py-3 hover:bg-violet-50 hover:text-violet-700">
+                Profile
             </NavLink>
 
-            <NavLink href="/settings">
-                ⚙️ Settings
+            <NavLink href="/settings"
+                     class="rounded-xl px-4 py-3 hover:bg-violet-50 hover:text-violet-700">
+                Settings
             </NavLink>
 
-            <NavLink href="/login">
-                🚪 Logout
+            <NavLink href="/login"
+                     class="rounded-xl px-4 py-3 hover:bg-violet-50 hover:text-violet-700">
+                Logout
             </NavLink>
-
         </nav>
-
     </aside>
 
-    <main class="sabay-main">
+    <main class="min-w-0 flex-1 p-5 md:p-8">
         @Body
     </main>
-
 </div>

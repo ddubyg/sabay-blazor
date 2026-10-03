@@ -1,61 +1,77 @@
 @page "/profile"
 
-<PageTitle>Sabay? - Profile</PageTitle>
+<PageTitle>Profile - Sabay?</PageTitle>
 
-<div class="sabay-top">
+<div class="mx-auto max-w-3xl">
 
-    <div>
-        <h1 class="sabay-title">My Profile</h1>
+    <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
 
-        <p class="sabay-subtitle">
-            Manage your Sabay? profile.
-        </p>
-    </div>
+        <div class="flex flex-col items-center text-center">
 
-</div>
-
-<div class="profile-card">
-
-    <div class="profile-header">
-
-        <div class="profile-avatar">
-            DD
-        </div>
-
-        <div>
-
-            <div class="profile-name">
-                Your Name
+            <div class="flex h-24 w-24 items-center justify-center rounded-full bg-violet-100 text-3xl font-bold text-violet-600">
+                DU
             </div>
 
-            <div class="profile-course">
-                BS Computer Science
-            </div>
+            <h1 class="mt-4 text-2xl font-bold text-gray-900">
+                Student User
+            </h1>
+
+            <p class="mt-1 text-gray-500">
+                CIT-U Student
+            </p>
+
+            <p class="mt-4 max-w-md text-sm text-gray-600">
+                Looking for people to study, play sports,
+                eat, game, and hang out with.
+            </p>
 
         </div>
 
+        <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+
+            <div class="rounded-xl bg-gray-50 p-5">
+                <p class="text-xs font-semibold uppercase text-gray-400">
+                    School
+                </p>
+                <p class="mt-1 font-semibold text-gray-800">
+                    CIT-U
+                </p>
+            </div>
+
+            <div class="rounded-xl bg-gray-50 p-5">
+                <p class="text-xs font-semibold uppercase text-gray-400">
+                    Course
+                </p>
+                <p class="mt-1 font-semibold text-gray-800">
+                    BS Computer Science
+                </p>
+            </div>
+
+            <div class="rounded-xl bg-gray-50 p-5">
+                <p class="text-xs font-semibold uppercase text-gray-400">
+                    Interests
+                </p>
+                <p class="mt-1 font-semibold text-gray-800">
+                    Tennis · Gaming · Studying
+                </p>
+            </div>
+
+            <div class="rounded-xl bg-gray-50 p-5">
+                <p class="text-xs font-semibold uppercase text-gray-400">
+                    Activities Joined
+                </p>
+                <p class="mt-1 font-semibold text-gray-800">
+                    3 activities
+                </p>
+            </div>
+
+        </div>
+
+        <button
+            class="mt-6 w-full rounded-xl bg-violet-600 px-5 py-3 font-semibold text-white hover:bg-violet-700">
+            Edit Profile
+        </button>
+
     </div>
-
-    <h3>About Me</h3>
-
-    <p class="activity-description">
-        Computer Science student who enjoys sports, gaming,
-        studying and hanging out with friends.
-    </p>
-
-    <h3>My Interests</h3>
-
-    <div class="sabay-filters">
-
-        <span class="activity-tag">🎾 Tennis</span>
-        <span class="activity-tag">🎮 Gaming</span>
-        <span class="activity-tag">📚 Studying</span>
-        <span class="activity-tag">🍔 Food</span>
-
-    </div>
-
-    <button class="sabay-btn sabay-btn-secondary">
-        Edit Profile
-    </button>
 
 </div>

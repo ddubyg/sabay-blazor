@@ -1,98 +1,192 @@
+```razor
 @page "/create"
+@rendermode InteractiveServer
+@using sabaycs321.Services
 
-<PageTitle>Sabay? - Create Activity</PageTitle>
+<PageTitle>Create Activity - Sabay?</PageTitle>
 
-<div class="sabay-top">
+<div class="mx-auto max-w-3xl">
 
-    <div>
-        <h1 class="sabay-title">Create Activity</h1>
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">
+            Create Activity
+        </h1>
 
-        <p class="sabay-subtitle">
-            Invite other students to join you.
+        <p class="mt-2 text-gray-500">
+            Create something and find people to join you.
         </p>
     </div>
 
+    @if (!string.IsNullOrEmpty(message))
+    {
+        <div class="mb-6 rounded-xl bg-green-50 p-4 text-sm font-medium text-green-700">
+            @message
+        </div>
+    }
+
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+
+        <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+
+            <!-- Activity Name -->
+            <div class="md:col-span-2">
+                <label class="mb-2 block text-sm font-semibold text-gray-700">
+                    Activity Name
+                </label>
+
+                <input
+                    @bind="title"
+                    placeholder="e.g. Study Session"
+                    class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100" />
+            </div>
+
+            <!-- Category -->
+            <div>
+                <label class="mb-2 block text-sm font-semibold text-gray-700">
+                    Category
+                </label>
+
+                <select
+                    @bind="category"
+                    class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 outline-none focus:border-violet-500">
+                    <option>Studying</option>
+                    <option>Sports</option>
+                    <option>Food</option>
+                    <option>Gaming</option>
+                    <option>Commuting</option>
+                    <option>Hanging Out</option>
+                </select>
+            </div>
+
+            <!-- Location -->
+            <div>
+                <label class="mb-2 block text-sm font-semibold text-gray-700">
+                    Location
+                </label>
+
+                <input
+                    @bind="location"
+                    placeholder="e.g. CIT-U Library"
+                    class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100" />
+            </div>
+
+            <!-- Date -->
+            <div>
+                <label class="mb-2 block text-sm font-semibold text-gray-700">
+                    Date
+                </label>
+
+                <input
+                    @bind="date"
+                    type="date"
+                    class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100" />
+            </div>
+
+            <!-- Time -->
+            <div>
+                <label class="mb-2 block text-sm font-semibold text-gray-700">
+                    Time
+                </label>
+
+                <input
+                    @bind="time"
+                    type="time"
+                    class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100" />
+            </div>
+
+            <!-- Number Needed -->
+            <div>
+                <label class="mb-2 block text-sm font-semibold text-gray-700">
+                    Number of People Needed
+                </label>
+
+                <input
+                    @bind="needed"
+                    type="number"
+                    min="1"
+                    class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100" />
+            </div>
+
+            <!-- Creator -->
+            <div>
+                <label class="mb-2 block text-sm font-semibold text-gray-700">
+                    Your Name
+                </label>
+
+                <input
+                    @bind="creator"
+                    placeholder="Your name"
+                    class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100" />
+            </div>
+
+            <!-- Description -->
+            <div class="md:col-span-2">
+                <label class="mb-2 block text-sm font-semibold text-gray-700">
+                    Description
+                </label>
+
+                <textarea
+                    @bind="description"
+                    rows="4"
+                    placeholder="Tell people what the activity is about..."
+                    class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100"></textarea>
+            </div>
+
+        </div>
+
+        <button
+            @onclick="CreateActivity"
+            class="mt-6 w-full rounded-xl bg-violet-600 px-5 py-3 font-semibold text-white transition hover:bg-violet-700">
+            Create Activity
+        </button>
+
+    </div>
+
 </div>
 
-<div class="sabay-form">
+@code {
+    private string title = "";
+    private string category = "Studying";
+    private string location = "";
 
-    <div class="sabay-form-group">
+    private DateTime date = DateTime.Today;
+    private TimeOnly time = TimeOnly.FromDateTime(DateTime.Now);
 
-        <label>Activity Title</label>
+    private int needed = 2;
+    private string creator = "";
+    private string description = "";
+    private string message = "";
 
-        <input class="sabay-input"
-               placeholder="e.g. Tennis after class" />
+    private void CreateActivity()
+    {
+        if (string.IsNullOrWhiteSpace(title) ||
+            string.IsNullOrWhiteSpace(location) ||
+            string.IsNullOrWhiteSpace(creator))
+        {
+            message = "Please fill in all required fields.";
+            return;
+        }
 
-    </div>
+        ActivityStore.AddActivity(new ActivityItem
+        {
+            Title = title,
+            Category = category,
+            Location = location,
+            Date = date.ToString("MMMM d, yyyy"),
+            Time = time.ToString("h:mm tt"),
+            Needed = needed,
+            Creator = creator,
+            Description = description
+        });
 
-    <div class="sabay-form-group">
+        message = "Activity created successfully! You can find it in Browse Activities.";
 
-        <label>Category</label>
-
-        <select class="sabay-select">
-
-            <option>Study</option>
-            <option>Sports</option>
-            <option>Food</option>
-            <option>Gaming</option>
-            <option>Commute</option>
-            <option>Hangout</option>
-
-        </select>
-
-    </div>
-
-    <div class="sabay-form-group">
-
-        <label>Description</label>
-
-        <textarea class="sabay-textarea"
-                  placeholder="Tell people what you are planning...">
-        </textarea>
-
-    </div>
-
-    <div class="sabay-form-group">
-
-        <label>Location</label>
-
-        <input class="sabay-input"
-               placeholder="e.g. CIT-U Tennis Court" />
-
-    </div>
-
-    <div class="sabay-form-group">
-
-        <label>Date</label>
-
-        <input type="date"
-               class="sabay-input" />
-
-    </div>
-
-    <div class="sabay-form-group">
-
-        <label>Time</label>
-
-        <input type="time"
-               class="sabay-input" />
-
-    </div>
-
-    <div class="sabay-form-group">
-
-        <label>Number of people needed</label>
-
-        <input type="number"
-               class="sabay-input"
-               min="1"
-               max="20"
-               value="1" />
-
-    </div>
-
-    <button class="sabay-btn sabay-btn-primary">
-        Create Activity
-    </button>
-
-</div>
+        title = "";
+        location = "";
+        date = DateTime.Today;
+        time = TimeOnly.FromDateTime(DateTime.Now);
+        needed = 2;
+        creator = "";
+        description = "";
+    }
+}
