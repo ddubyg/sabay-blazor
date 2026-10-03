@@ -1,3 +1,4 @@
+```razor
 @page "/activity/{Id:int}"
 @rendermode InteractiveServer
 @using sabaycs321.Services
@@ -31,6 +32,7 @@ else
         <div class="mt-5 rounded-2xl border border-gray-200 bg-white p-7 shadow-sm">
 
             <div class="flex flex-wrap items-center justify-between gap-3">
+
                 <span class="rounded-full bg-violet-100 px-3 py-1 text-sm font-semibold text-violet-700">
                     @Activity.Category
                 </span>
@@ -38,6 +40,7 @@ else
                 <span class="text-sm text-gray-500">
                     @Activity.Participants.Count / @Activity.Needed participants
                 </span>
+
             </div>
 
             <h1 class="mt-5 text-3xl font-bold text-gray-900">
@@ -51,40 +54,64 @@ else
             <div class="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2">
 
                 <div class="rounded-xl bg-gray-50 p-4">
-                    <p class="text-xs font-semibold uppercase text-gray-400">Location</p>
-                    <p class="mt-1 font-semibold text-gray-800">📍 @Activity.Location</p>
+                    <p class="text-xs font-semibold uppercase text-gray-400">
+                        Location
+                    </p>
+
+                    <p class="mt-1 font-semibold text-gray-800">
+                        📍 @Activity.Location
+                    </p>
                 </div>
 
                 <div class="rounded-xl bg-gray-50 p-4">
-                    <p class="text-xs font-semibold uppercase text-gray-400">Date</p>
-                    <p class="mt-1 font-semibold text-gray-800">📅 @Activity.Date</p>
+                    <p class="text-xs font-semibold uppercase text-gray-400">
+                        Date
+                    </p>
+
+                    <p class="mt-1 font-semibold text-gray-800">
+                        📅 @Activity.Date
+                    </p>
                 </div>
 
                 <div class="rounded-xl bg-gray-50 p-4">
-                    <p class="text-xs font-semibold uppercase text-gray-400">Time</p>
-                    <p class="mt-1 font-semibold text-gray-800">🕐 @Activity.Time</p>
+                    <p class="text-xs font-semibold uppercase text-gray-400">
+                        Time
+                    </p>
+
+                    <p class="mt-1 font-semibold text-gray-800">
+                        🕐 @Activity.Time
+                    </p>
                 </div>
 
                 <div class="rounded-xl bg-gray-50 p-4">
-                    <p class="text-xs font-semibold uppercase text-gray-400">Created By</p>
-                    <p class="mt-1 font-semibold text-gray-800">@Activity.Creator</p>
+                    <p class="text-xs font-semibold uppercase text-gray-400">
+                        Created By
+                    </p>
+
+                    <p class="mt-1 font-semibold text-gray-800">
+                        @Activity.Creator
+                    </p>
                 </div>
 
             </div>
 
             <div class="mt-7">
+
                 <h2 class="text-lg font-bold text-gray-900">
                     Participants
                 </h2>
 
                 <div class="mt-3 space-y-2">
+
                     @foreach (var participant in Activity.Participants)
                     {
                         <div class="rounded-xl bg-gray-50 px-4 py-3 text-sm font-medium text-gray-700">
                             👤 @participant
                         </div>
                     }
+
                 </div>
+
             </div>
 
             @if (!string.IsNullOrEmpty(message))
@@ -94,14 +121,28 @@ else
                 </div>
             }
 
-            <button
-                @onclick="Join"
-                disabled="@(Activity.Participants.Count >= Activity.Needed)"
-                class="mt-6 w-full rounded-xl bg-violet-600 px-5 py-3 font-semibold text-white transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:bg-gray-300">
-                @(Activity.Participants.Count >= Activity.Needed ? "Activity Full" : "Join Activity")
-            </button>
+            @if (Activity.Participants.Contains("You"))
+            {
+                <button
+                    disabled
+                    class="mt-6 w-full cursor-not-allowed rounded-xl bg-green-500 px-5 py-3 font-semibold text-white">
+                    ✓ You Joined This Activity
+                </button>
+            }
+            else
+            {
+                <button
+                    @onclick="Join"
+                    disabled="@(Activity.Participants.Count >= Activity.Needed)"
+                    class="mt-6 w-full rounded-xl bg-violet-600 px-5 py-3 font-semibold text-white transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:bg-gray-300">
+                    @(Activity.Participants.Count >= Activity.Needed
+                        ? "Activity Full"
+                        : "Join Activity")
+                </button>
+            }
 
         </div>
+
     </div>
 }
 
@@ -129,3 +170,121 @@ else
             : "You are already a participant or the activity is full.";
     }
 }
+```
+
+Then:
+
+```powershell
+dotnet build
+```
+
+Then commit:
+
+```powershell
+git add .
+git commit -m "feat: prevent duplicate activity joins"
+```
+
+---
+
+# STEP 16 — `Home.razor`
+
+```razor
+@page "/"
+@using sabaycs321.Services
+
+<PageTitle>Home - Sabay?</PageTitle>
+
+<div class="mx-auto max-w-7xl">
+
+    <div class="rounded-3xl bg-violet-600 p-8 text-white shadow-lg">
+
+        <p class="text-sm font-semibold uppercase tracking-wide text-violet-200">
+            Welcome to Sabay?
+        </p>
+
+        <h1 class="mt-2 text-4xl font-bold">
+            Find someone to do things with.
+        </h1>
+
+        <p class="mt-3 max-w-2xl text-violet-100">
+            Find classmates for studying, sports, food, gaming,
+            commuting, and hanging out.
+        </p>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+
+            <a
+                href="/browse"
+                class="rounded-xl bg-white px-5 py-3 font-semibold text-violet-700 transition hover:bg-violet-50">
+                Browse Activities
+            </a>
+
+            <a
+                href="/create"
+                class="rounded-xl border border-violet-300 px-5 py-3 font-semibold text-white transition hover:bg-violet-500">
+                Create Activity
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="mt-10 flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+
+        <div>
+
+            <h2 class="text-2xl font-bold text-gray-900">
+                Recent Activities
+            </h2>
+
+            <p class="mt-1 text-gray-500">
+                See what students are doing.
+            </p>
+
+        </div>
+
+        <a
+            href="/browse"
+            class="font-semibold text-violet-600 hover:text-violet-700">
+            View all →
+        </a>
+
+    </div>
+
+    <div class="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+
+        @foreach (var activity in ActivityStore.Activities.Take(3))
+        {
+            <div class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+
+                <span class="rounded-full bg-violet-100 px-3 py-1 text-xs font-semibold text-violet-700">
+                    @activity.Category
+                </span>
+
+                <h3 class="mt-4 text-xl font-bold text-gray-900">
+                    @activity.Title
+                </h3>
+
+                <p class="mt-2 text-sm text-gray-500">
+                    @activity.Description
+                </p>
+
+                <div class="mt-4 space-y-2 text-sm text-gray-600">
+                    <p>📍 @activity.Location</p>
+                    <p>📅 @activity.Date</p>
+                    <p>🕐 @activity.Time</p>
+                </div>
+
+                <a
+                    href="/activity/@activity.Id"
+                    class="mt-5 block rounded-xl bg-violet-600 px-4 py-3 text-center font-semibold text-white hover:bg-violet-700">
+                    View Details
+                </a>
+
+            </div>
+        }
+
+    </div>
+
+</div>
